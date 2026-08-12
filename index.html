@@ -281,6 +281,10 @@
       <div class="promo-icon">🎟️</div>
       <div><b>Ticket para el sorteo</b><span>Por cada S/100 en tu compra, 1 ticket para +20 premios del mes.</span></div>
     </div>
+    <div class="promo-item">
+      <div class="promo-icon">🎁</div>
+      <div><b id="regaloTitle">Regalo: set x4 de bolígrafos Paper Mate</b><span id="regaloSub">Desde S/200 en tu compra. Es un regalo (no dos): si llegas a S/500 se reemplaza por un set x10 de marcadores Sharpie. Hasta agotar stock.</span></div>
+    </div>
   </div>
 </div>
 
@@ -302,6 +306,12 @@
       <div id="raffleMsg">Agrega útiles a tu lista para ganar tickets del sorteo 🎁</div>
       <div class="bar-track"><div class="bar-fill" id="raffleBar"></div></div>
       <div class="ticket-count" id="ticketCount"></div>
+    </div>
+
+    <div class="raffle-box" style="border-color:var(--carmin)">
+      <div id="regaloMsg">Agrega útiles a tu lista para desbloquear tu regalo 🎁</div>
+      <div class="bar-track"><div class="bar-fill" id="regaloBar" style="background:linear-gradient(90deg,var(--ultramar),var(--carmin))"></div></div>
+      <div class="ticket-count" id="regaloEstado"></div>
     </div>
 
     <div class="cta-row">
@@ -618,6 +628,40 @@ function recalc(){
     document.getElementById(`count-${gi}`).textContent = `${n}/${g.items.length}`;
   });
 
+  // regalo por monto de compra (uno solo, no ambos)
+  const regaloTitle = document.getElementById('regaloTitle');
+  const regaloSub = document.getElementById('regaloSub');
+  const regaloMsg = document.getElementById('regaloMsg');
+  const regaloBar = document.getElementById('regaloBar');
+  const regaloEstado = document.getElementById('regaloEstado');
+
+  if(total >= 500){
+    regaloTitle.textContent = "🎉 ¡Ganaste el regalo: set x10 de marcadores Sharpie!";
+    regaloSub.textContent = "Por superar los S/500 en tu compra. Reemplaza al set de bolígrafos Paper Mate. Hasta agotar stock.";
+
+    regaloMsg.innerHTML = `¡Superaste los <b>S/500</b>! Te llevas de regalo el <b>set x10 de marcadores Sharpie</b> 🖍️`;
+    regaloBar.style.width = "100%";
+    regaloEstado.textContent = "🎁 Regalo asegurado: set x10 marcadores Sharpie (hasta agotar stock)";
+  } else if(total >= 200){
+    const falta = (500 - total).toFixed(2);
+    const progreso = Math.min(100, ((total - 200) / (500 - 200)) * 100);
+    regaloTitle.textContent = "🎁 Llevas de regalo: set x4 de bolígrafos Paper Mate";
+    regaloSub.textContent = `Te faltan S/ ${falta} para que este regalo cambie por el set x10 de marcadores Sharpie. Es uno u otro, no ambos. Hasta agotar stock.`;
+
+    regaloMsg.innerHTML = `Te llevas de regalo el <b>set x4 de bolígrafos Paper Mate</b> ✒️. Te faltan <b>S/ ${falta}</b> para que cambie por el set x10 de marcadores Sharpie.`;
+    regaloBar.style.width = `${progreso}%`;
+    regaloEstado.textContent = "🎁 Regalo asegurado: set x4 bolígrafos Paper Mate (hasta agotar stock)";
+  } else {
+    const falta = (200 - total).toFixed(2);
+    const progreso = Math.min(100, (total / 200) * 100);
+    regaloTitle.textContent = "🎁 Regalo sorpresa por tu compra";
+    regaloSub.textContent = `Te faltan S/ ${falta} para desbloquear el set x4 de bolígrafos Paper Mate de regalo. Hasta agotar stock.`;
+
+    regaloMsg.innerHTML = `Te faltan <b>S/ ${falta}</b> para desbloquear tu regalo: set x4 de bolígrafos Paper Mate 🎁`;
+    regaloBar.style.width = `${progreso}%`;
+    regaloEstado.textContent = "";
+  }
+
   // sorteo: 1 ticket cada S/100
   const tickets = Math.floor(total / 100);
   const remainder = total % 100;
@@ -660,6 +704,8 @@ function recalc(){
   });
   msgTxt += `%0ASubtotal: S/ ${subtotal.toFixed(2)}%0ADescuento 10%25: -S/ ${discountAmt.toFixed(2)}%0A*Total: S/ ${total.toFixed(2)}*`;
   if(tickets > 0) msgTxt += `%0A%0A🎟️ Tickets de sorteo: ${tickets}`;
+  if(total >= 500) msgTxt += `%0A🎁 Regalo: set x10 de marcadores Sharpie (hasta agotar stock)`;
+  else if(total >= 200) msgTxt += `%0A🎁 Regalo: set x4 de bolígrafos Paper Mate (hasta agotar stock)`;
   document.getElementById('waBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msgTxt}`;
 }
 
