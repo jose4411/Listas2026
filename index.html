@@ -283,7 +283,7 @@
     </div>
     <div class="promo-item">
       <div class="promo-icon">🎁</div>
-      <div><b id="regaloTitle">Regalo: set x4 de bolígrafos Paper Mate</b><span id="regaloSub">Desde S/200 en tu compra. Es un regalo (no dos): si llegas a S/500 se reemplaza por un set x10 de marcadores Sharpie. Hasta agotar stock.</span></div>
+      <div><b>Regalo por tu compra</b><span>Desde S/200: set x4 de bolígrafos Paper Mate. Desde S/500: se reemplaza por un set x10 de marcadores Sharpie (es uno u otro, no ambos). Hasta agotar stock.</span></div>
     </div>
   </div>
 </div>
@@ -629,34 +629,23 @@ function recalc(){
   });
 
   // regalo por monto de compra (uno solo, no ambos)
-  const regaloTitle = document.getElementById('regaloTitle');
-  const regaloSub = document.getElementById('regaloSub');
   const regaloMsg = document.getElementById('regaloMsg');
   const regaloBar = document.getElementById('regaloBar');
   const regaloEstado = document.getElementById('regaloEstado');
 
   if(total >= 500){
-    regaloTitle.textContent = "🎉 ¡Ganaste el regalo: set x10 de marcadores Sharpie!";
-    regaloSub.textContent = "Por superar los S/500 en tu compra. Reemplaza al set de bolígrafos Paper Mate. Hasta agotar stock.";
-
     regaloMsg.innerHTML = `¡Superaste los <b>S/500</b>! Te llevas de regalo el <b>set x10 de marcadores Sharpie</b> 🖍️`;
     regaloBar.style.width = "100%";
     regaloEstado.textContent = "🎁 Regalo asegurado: set x10 marcadores Sharpie (hasta agotar stock)";
   } else if(total >= 200){
     const falta = (500 - total).toFixed(2);
     const progreso = Math.min(100, ((total - 200) / (500 - 200)) * 100);
-    regaloTitle.textContent = "🎁 Llevas de regalo: set x4 de bolígrafos Paper Mate";
-    regaloSub.textContent = `Te faltan S/ ${falta} para que este regalo cambie por el set x10 de marcadores Sharpie. Es uno u otro, no ambos. Hasta agotar stock.`;
-
     regaloMsg.innerHTML = `Te llevas de regalo el <b>set x4 de bolígrafos Paper Mate</b> ✒️. Te faltan <b>S/ ${falta}</b> para que cambie por el set x10 de marcadores Sharpie.`;
     regaloBar.style.width = `${progreso}%`;
     regaloEstado.textContent = "🎁 Regalo asegurado: set x4 bolígrafos Paper Mate (hasta agotar stock)";
   } else {
     const falta = (200 - total).toFixed(2);
     const progreso = Math.min(100, (total / 200) * 100);
-    regaloTitle.textContent = "🎁 Regalo sorpresa por tu compra";
-    regaloSub.textContent = `Te faltan S/ ${falta} para desbloquear el set x4 de bolígrafos Paper Mate de regalo. Hasta agotar stock.`;
-
     regaloMsg.innerHTML = `Te faltan <b>S/ ${falta}</b> para desbloquear tu regalo: set x4 de bolígrafos Paper Mate 🎁`;
     regaloBar.style.width = `${progreso}%`;
     regaloEstado.textContent = "";
