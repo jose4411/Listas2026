@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tu lista, lista — Aniversario 10% + Sorteo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=DM+Sans:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EC;
+    --paper-2:#F5EEDD;
+    --grid:#C7DEEA;
+    --ink:#26241F;
+    --ink-blue:#2B4C7E;
+    --carmin:#A31621;
+    --bermellon:#D9502B;
+    --magenta:#C2185B;
+    --cadmio:#EEA80A;
+    --limon:#D9C82E;
+    --prusia:#10375C;
+    --ultramar:#28439E;
+    --cian:#0089AC;
+    --line:#DCD2B8;
+    --radius:14px;
+    --shadow:0 6px 24px rgba(38,36,31,.08);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0/22px 22px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'DM Sans', system-ui, sans-serif;
+    line-height:1.45;
+    padding-bottom:96px;
+  }
+  h1,h2,h3{ font-family:'Kalam', cursive; margin:0; }
+  .mono{ font-family:'Space Mono', monospace; }
+  a{ color:inherit; }
+  .wrap{ max-width:900px; margin:0 auto; padding:0 16px; }
+
+  /* ---------- HEADER ---------- */
+  header.top{
+    position:sticky; top:0; z-index:40;
+    background:rgba(251,246,236,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:2px solid var(--ink);
+    padding:10px 16px;
+  }
+  .top-inner{ max-width:900px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand-mark{ width:38px; height:38px; flex:none; }
+  .brand-name{ font-size:1.35rem; }
+  .brand-sub{ font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-blue); font-weight:700; margin-top:-2px;}
+  .cart-pill{
+    display:flex; align-items:center; gap:8px;
+    background:var(--ink); color:var(--paper);
+    border-radius:999px; padding:8px 14px; font-weight:700; font-size:.85rem;
+    cursor:pointer; border:none; white-space:nowrap;
+  }
+  .cart-pill .mono{ color:var(--cadmio); }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:34px 0 18px; text-align:center; position:relative; }
+  .ribbon{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--carmin); color:#fff; font-weight:700; font-size:.78rem;
+    padding:6px 14px; border-radius:999px; transform:rotate(-2deg);
+    box-shadow:var(--shadow); margin-bottom:16px;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 8vw, 3.6rem);
+    line-height:1.05; color:var(--ink);
+  }
+  .hero h1 span{ color:var(--ultramar); }
+  .hero p{ max-width:520px; margin:14px auto 0; color:#4b473c; font-size:1rem; }
+  .swatch-row{ display:flex; justify-content:center; gap:8px; margin-top:22px; flex-wrap:wrap; }
+  .swatch{ width:26px; height:26px; border-radius:50%; border:2px solid var(--ink); }
+
+  /* ---------- PROMO BANNER ---------- */
+  .promo{
+    margin:22px auto; max-width:900px; padding:0 16px;
+  }
+  .promo-card{
+    background:var(--ultramar); color:#fff; border-radius:var(--radius);
+    padding:18px 20px; display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+    box-shadow:var(--shadow); position:relative; overflow:hidden;
+    border:2px solid var(--ink);
+  }
+  .promo-card::after{
+    content:"✦"; position:absolute; right:-6px; top:-14px; font-size:5rem; color:rgba(255,255,255,.08);
+  }
+  .promo-item{ display:flex; align-items:center; gap:10px; flex:1; min-width:220px; }
+  .promo-icon{ font-size:1.6rem; }
+  .promo-item b{ display:block; font-size:1.02rem; }
+  .promo-item span{ font-size:.82rem; opacity:.85; }
+
+  /* ---------- UNIVERSIDAD SELECTOR ---------- */
+  .uni-wrap{ margin:26px auto 0; max-width:900px; padding:0 16px; }
+  .uni-label{ font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-blue); margin-bottom:10px; }
+  .uni-scroll{ display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; }
+  .uni-scroll::-webkit-scrollbar{ height:0; }
+  .uni-card{
+    flex:none; min-width:128px; background:#fff; border:2px solid var(--ink); border-radius:12px;
+    padding:12px 14px; cursor:pointer; text-align:left; position:relative; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .uni-card:hover{ transform:translateY(-2px); }
+  .uni-card.active{ box-shadow:4px 4px 0 var(--uni-color, var(--carmin)); }
+  .uni-card .uni-name{ font-weight:700; font-size:.95rem; }
+  .uni-card .uni-status{ font-size:.68rem; color:#8a8574; margin-top:2px; }
+  .uni-card.soon{ opacity:.55; }
+  .uni-dot{ width:10px; height:10px; border-radius:50%; margin-bottom:6px; }
+  .uni-empty{
+    background:#fff; border:1.5px dashed var(--line); border-radius:12px; padding:26px 18px;
+    text-align:center; color:#7a7566; font-size:.9rem; margin-top:10px;
+  }
+  .uni-empty b{ display:block; color:var(--ink); font-size:1.05rem; margin-bottom:4px; font-family:'Kalam', cursive; }
+
+  /* ---------- SECTION HEADER ---------- */
+  .section{ margin:30px 0 14px; }
+  .section-head{
+    display:flex; align-items:center; justify-content:space-between;
+    border-bottom:2px solid var(--ink); padding-bottom:6px; margin-bottom:10px;
+    cursor:pointer; user-select:none;
+  }
+  .section-head h2{ font-size:1.4rem; display:flex; align-items:center; gap:8px; }
+  .section-count{ font-size:.75rem; font-family:'Space Mono',monospace; color:var(--ink-blue); }
+  .chev{ transition:transform .25s ease; font-size:1.1rem; }
+  .section.collapsed .chev{ transform:rotate(-90deg); }
+  .section.collapsed .item-list{ display:none; }
+
+  .item-list{ display:flex; flex-direction:column; gap:8px; }
+  .item{
+    display:grid;
+    grid-template-columns:40px 1fr auto;
+    gap:12px; align-items:center;
+    background:#fff; border:1.5px solid var(--line); border-radius:12px;
+    padding:10px 12px;
+    transition:opacity .2s, border-color .2s;
+  }
+  .item.off{ opacity:.42; }
+  .item-icon{
+    width:40px; height:40px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--paper-2); flex:none;
+  }
+  .item-icon svg{ width:22px; height:22px; }
+  .item-mid{ min-width:0; }
+  .item-name{ font-weight:700; font-size:.93rem; }
+  .item-note{ font-size:.74rem; color:#7a7566; margin-top:1px; }
+  .variant-select{
+    width:100%; margin-top:6px; font-family:'DM Sans', sans-serif; font-size:.78rem;
+    border:1.5px solid var(--line); border-radius:8px; padding:6px 8px; background:#fffdf8;
+    color:var(--ink); max-width:260px;
+  }
+  .variant-select:focus{ outline:2px solid var(--ultramar); outline-offset:1px; }
+  .item-right{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+  .price-row{ display:flex; align-items:baseline; gap:6px; }
+  .price-old{ font-size:.72rem; color:#9c968a; text-decoration:line-through; }
+  .price-new{ font-weight:700; font-size:.95rem; color:var(--carmin); }
+  .qty-check{ display:flex; align-items:center; gap:8px; }
+  .qty{ display:flex; align-items:center; border:1.5px solid var(--ink); border-radius:8px; overflow:hidden; }
+  .qty button{
+    width:24px; height:24px; border:none; background:var(--paper-2); font-size:1rem; cursor:pointer; font-weight:700;
+  }
+  .qty input{
+    width:34px; text-align:center; border:none; border-left:1.5px solid var(--ink); border-right:1.5px solid var(--ink);
+    font-family:'Space Mono',monospace; font-size:.8rem; padding:2px 0;
+  }
+  .chk{ width:19px; height:19px; accent-color:var(--carmin); cursor:pointer; }
+
+  .select-all{
+    display:flex; gap:14px; font-size:.78rem; margin-bottom:2px; color:var(--ink-blue); font-weight:700;
+  }
+  .select-all button{ background:none; border:none; color:inherit; text-decoration:underline; cursor:pointer; font:inherit; padding:0; }
+
+  /* ---------- SUMMARY / RECEIPT ---------- */
+  .receipt-wrap{ margin:36px 0; padding:0 16px; }
+  .receipt{
+    max-width:420px; margin:0 auto; background:#fff; border:2px dashed var(--ink);
+    border-radius:10px; padding:22px 22px 26px; box-shadow:var(--shadow); position:relative;
+  }
+  .receipt h3{ text-align:center; font-size:1.3rem; margin-bottom:10px; }
+  .receipt-row{ display:flex; justify-content:space-between; font-size:.85rem; padding:5px 0; font-family:'Space Mono',monospace; }
+  .receipt-row.total{ border-top:1.5px dashed var(--ink); margin-top:8px; padding-top:10px; font-size:1.05rem; font-weight:700; }
+  .receipt-row .discount{ color:var(--carmin); }
+  .raffle-box{
+    margin-top:16px; border-radius:10px; padding:12px 14px;
+    background:var(--paper-2); border:1.5px solid var(--cadmio); font-size:.82rem;
+  }
+  .raffle-box b{ color:var(--carmin); }
+  .bar-track{ height:8px; background:#eee2c6; border-radius:99px; margin-top:8px; overflow:hidden; }
+  .bar-fill{ height:100%; background:linear-gradient(90deg,var(--cadmio),var(--carmin)); width:0%; transition:width .4s ease; }
+  .ticket-count{ margin-top:8px; font-weight:700; }
+
+  .cta-row{ display:flex; gap:10px; margin-top:18px; flex-wrap:wrap; }
+  .btn{
+    flex:1; min-width:160px; text-align:center; border-radius:10px; padding:13px 16px; font-weight:700;
+    font-size:.9rem; cursor:pointer; border:2px solid var(--ink); text-decoration:none; display:inline-flex;
+    align-items:center; justify-content:center; gap:8px;
+  }
+  .btn-primary{ background:#25D366; color:#08331b; }
+  .btn-ghost{ background:transparent; color:var(--ink); }
+
+  /* ---------- STICKY BOTTOM BAR (mobile) ---------- */
+  .stickybar{
+    position:fixed; left:0; right:0; bottom:0; z-index:50;
+    background:var(--ink); color:var(--paper);
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    box-shadow:0 -6px 20px rgba(0,0,0,.18);
+  }
+  .stickybar .tot{ font-family:'Space Mono',monospace; }
+  .stickybar .tot small{ display:block; font-size:.62rem; opacity:.7; font-family:'DM Sans'; }
+  .stickybar .tot b{ font-size:1.15rem; color:var(--cadmio); }
+  .stickybar .btn{ min-width:auto; padding:11px 18px; }
+
+  footer{ text-align:center; padding:30px 16px 20px; font-size:.75rem; color:#8a8574; }
+  footer b{ color:var(--ink); }
+
+  .disclaimer{
+    max-width:900px; margin:0 auto; padding:0 16px 6px; font-size:.72rem; color:#9c9686; text-align:center;
+  }
+
+  @media(min-width:720px){
+    .item{ grid-template-columns:46px 1fr auto; padding:12px 16px; }
+    .hero{ padding:60px 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" fill="#fff" stroke="#26241F" stroke-width="2.5"/>
+        <circle cx="17" cy="18" r="5" fill="#A31621"/>
+        <circle cx="30" cy="16" r="5" fill="#EEA80A"/>
+        <circle cx="32" cy="30" r="5" fill="#28439E"/>
+        <circle cx="17" cy="30" r="4" fill="#0089AC"/>
+      </svg>
+      <div>
+        <div class="brand-name">La Casa del Art<span style="color:var(--carmin)">e</span></div>
+        <div class="brand-sub">Útiles de arte</div>
+      </div>
+    </div>
+    <button class="cart-pill" onclick="document.getElementById('resumen').scrollIntoView({behavior:'smooth'})">
+      🛒 <span class="mono" id="pillTotal">S/ 0.00</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="ribbon">🎉 SEMANA DE ANIVERSARIO</div>
+  <h1>Tu lista, <span>lista</span>.</h1>
+  <p>Elige tu universidad, marca lo que necesitas de tu lista de útiles de arte y mira el precio al instante — con <b>10% de descuento</b> ya aplicado.</p>
+  <div class="swatch-row">
+    <div class="swatch" style="background:var(--carmin)"></div>
+    <div class="swatch" style="background:var(--bermellon)"></div>
+    <div class="swatch" style="background:var(--magenta)"></div>
+    <div class="swatch" style="background:var(--cadmio)"></div>
+    <div class="swatch" style="background:var(--limon)"></div>
+    <div class="swatch" style="background:var(--cian)"></div>
+    <div class="swatch" style="background:var(--ultramar)"></div>
+    <div class="swatch" style="background:var(--prusia)"></div>
+  </div>
+</section>
+
+<div class="promo">
+  <div class="promo-card">
+    <div class="promo-item">
+      <div class="promo-icon">🏷️</div>
+      <div><b>10% OFF en toda la lista</b><span>Descuento por aniversario, aplicado automáticamente en cada ítem.</span></div>
+    </div>
+    <div class="promo-item">
+      <div class="promo-icon">🎟️</div>
+      <div><b>Ticket para el sorteo</b><span>Por cada S/100 en tu compra, 1 ticket para +20 premios del mes.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="uni-wrap">
+  <div class="uni-label">Elige tu universidad</div>
+  <div class="uni-scroll" id="uniSelector"></div>
+</div>
+
+<main class="wrap" id="listado"></main>
+
+<div class="receipt-wrap" id="resumen">
+  <div class="receipt">
+    <h3>🧾 Tu resumen</h3>
+    <div class="receipt-row"><span>Subtotal</span><span class="mono" id="rSubtotal">S/ 0.00</span></div>
+    <div class="receipt-row discount"><span>Descuento aniversario (10%)</span><span class="mono" id="rDesc">- S/ 0.00</span></div>
+    <div class="receipt-row total"><span>Total a pagar</span><span class="mono" id="rTotal">S/ 0.00</span></div>
+
+    <div class="raffle-box">
+      <div id="raffleMsg">Agrega útiles a tu lista para ganar tickets del sorteo 🎁</div>
+      <div class="bar-track"><div class="bar-fill" id="raffleBar"></div></div>
+      <div class="ticket-count" id="ticketCount"></div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" id="waBtn" href="#" target="_blank">📲 Enviar pedido por WhatsApp</a>
+      <button class="btn btn-ghost" onclick="resetAll()">Limpiar lista</button>
+    </div>
+  </div>
+</div>
+
+<p class="disclaimer">Precios referenciales en soles (S/), sujetos a confirmación de stock. Marcas sugeridas: Canson, Skizze, American Colors, Anypsa, Spondylus.</p>
+
+<footer>
+  Hecho con cariño para tu lista de <b>Diseño / Arte</b> · Aniversario de la Casa del Arte 2026<br>
+  Cambia esta lista, precios y tu número de WhatsApp directo en el código.
+</footer>
+
+<div class="stickybar">
+  <div class="tot"><small>Total con descuento</small><b id="barTotal">S/ 0.00</b></div>
+  <a class="btn btn-primary" href="#resumen">Ver resumen</a>
+</div>
+
+<script>
+/* ============ ICONOS (SVG minimalistas, trazo tipo cuaderno) ============ */
+const ICONS = {
+  paper: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>`,
+  ball: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M6 9c3 2 9 2 12 0M6 15c3-2 9-2 12 0"/></svg>`,
+  roller: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><rect x="3" y="6" width="14" height="7" rx="2"/><path d="M18 9.5h3M10 13v7"/></svg>`,
+  brush: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><path d="M14 4l6 6-8 8-4-4z"/><path d="M8 14l-4 6 6-4"/></svg>`,
+  cup: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><path d="M6 8h12l-1.5 11a2 2 0 01-2 1.7h-5a2 2 0 01-2-1.7z"/><path d="M6 8V6a2 2 0 012-2h8a2 2 0 012 2v2"/></svg>`,
+  glass: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><path d="M6 4h12l-1.5 15a2 2 0 01-2 2h-5a2 2 0 01-2-2z"/><path d="M6 9h12"/></svg>`,
+  cloth: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><path d="M4 5c4 2 12 2 16 0v6c-4 3-12 3-16 0z"/><path d="M4 11c4 2 12 2 16 0"/></svg>`,
+  scissors: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 8l12 10M8 16L20 6"/></svg>`,
+  pencil: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/></svg>`,
+  eraser: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><rect x="5" y="10" width="14" height="7" rx="1.5" transform="rotate(-10 12 13)"/><path d="M9 10l6-6 5 5-5 5"/></svg>`,
+  ruler: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><rect x="3" y="9" width="18" height="6" rx="1"/><path d="M6 9v3M9 9v2M12 9v3M15 9v2M18 9v3"/></svg>`,
+  glue: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><path d="M9 3h6v3l2 2v11a2 2 0 01-2 2H9a2 2 0 01-2-2V8l2-2z"/><path d="M7 12h10"/></svg>`,
+  can: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><rect x="5" y="7" width="14" height="13" rx="1.5"/><ellipse cx="12" cy="7" rx="7" ry="2.2"/></svg>`,
+  wheel: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#26241F" stroke-width="1.6"/><path d="M12 3 A9 9 0 0 1 20.8 9 L12 12 Z" fill="#A31621"/><path d="M20.8 9 A9 9 0 0 1 12 21 L12 12 Z" fill="#EEA80A"/><path d="M12 21 A9 9 0 0 1 12 3 L12 12 Z" fill="#28439E"/></svg>`,
+  compass: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><path d="M12 3v3M9 21l3-14 3 14"/><circle cx="12" cy="4.5" r="1.5" fill="#2B4C7E" stroke="none"/></svg>`,
+  spatula: `<svg viewBox="0 0 24 24" fill="none" stroke="#2B4C7E" stroke-width="1.8"><path d="M15 4l5 5-9 9-5-5z"/><path d="M4 20l6-6"/></svg>`
+};
+function swatch(color){ return `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="${color}" stroke="#26241F" stroke-width="1.6"/></svg>`; }
+
+/* ============ UNIVERSIDADES — agrega aquí cada lista cuando la tengas ============
+   Para sumar una universidad nueva: copia un bloque, cambia el id, el nombre, el color
+   y pon available:true con su propio "catalog". Mientras available sea false, se
+   muestra como "Próximamente" y no es seleccionable. */
+const UNIVERSITIES = {
+  usil: {
+    name: "USIL",
+    color: "#A31621",
+    available: true,
+    catalog: [
+      { cat:"Materiales base", items:[
+        { id:"cart_negra", name:"Cartulina negra (pliego)", note:"Mismo gramaje 160gr — elige tu marca", unit:"pliego", qty:3, price:6.50, icon:"paper", on:true,
+          options:[ {label:"Canson 160gr", price:6.50}, {label:"Fabriano 160gr", price:5.50} ] },
+        { id:"block_a3", name:"Block de papel A3", note:"Canson XL / Extra blanco 90g", unit:"unid", qty:1, price:82.50, icon:"paper", on:true },
+        { id:"cart_blanca", name:"Paquete de Cartulina x25 pliego", note:"Uso: bocetos y prácticas", unit:"unid", qty:1, price:80.00, icon:"paper", on:true },
+        { id:"foldcote", name:"Foldcote 70×100cm calibre 18", note:"", unit:"unid", qty:4, price:2.80, icon:"paper", on:true },
+        { id:"recipiente", name:"Recipiente para agua", note:"Elige presentación", unit:"unid", qty:1, price:13.00, icon:"glass", on:true,
+          options:[ {label:"Faber Castell (Click and go)", price:13.00}, {label:"Importado", price:5.00} ] },
+        { id:"paño", name:"Paño o tela", note:"Para limpiar pinceles", unit:"unid", qty:1, price:1.00, icon:"cloth", on:true },
+        { id:"tijera", name:"Tijera o cuchilla", note:"Elige la que prefieras", unit:"unid", qty:1, price:4.50, icon:"scissors", on:true,
+          options:[ {label:"Cuchilla Maped 18mm", price:4.50}, {label:"Tijera Delfín", price:8.00} ] },
+        { id:"lapiz", name:"Lápiz", note:"Elige tu marca", unit:"unid", qty:1, price:3.50, icon:"pencil", on:true,
+          options:[ {label:"Faber Castell 2B (Castell 9000)", price:3.50}, {label:"Staedtler", price:6.50}, {label:"Stabilo (Layconsa)", price:2.00} ] },
+        { id:"borrador", name:"Borrador", note:"Elige tu marca", unit:"unid", qty:1, price:3.50, icon:"eraser", on:true,
+          options:[ {label:"Stabilo blanco y negro", price:3.50}, {label:"Staedtler", price:5.00}, {label:"Faber Castell", price:2.50} ] },
+        { id:"regla", name:"Regla de metal 60cm", note:"Resistente y cortes precisos", unit:"unid", qty:1, price:12.00, icon:"ruler", on:true },
+        { id:"silicona", name:"Silicona líquida", note:"Elige marca y presentación", unit:"unid", qty:1, price:8.00, icon:"glue", on:true,
+          options:[
+            {label:"Layconsa/Arti 100ml", price:8.00},
+            {label:"Layconsa/Arti 250ml", price:12.00},
+            {label:"UHU 250ml", price:14.50},
+            {label:"UHU 95ml", price:8.50},
+            {label:"UHU 35ml", price:6.50}
+          ] },
+      ]},
+      { cat:"Pinceles", items:[
+        { id:"pincel16", name:"Pincel mediano cerda suave N°16", note:"Cbit fibra sintetica", unit:"unid", qty:1, price:15.00, icon:"brush", on:true },
+        { id:"pincel18", name:"Pincel mediano cerda suave N°18", note:"Cbit fibra sintetica", unit:"unid", qty:1, price:17.30, icon:"brush", on:true },
+      ]},
+      { cat:"Pinturas y témperas", items:[
+        { id:"t_carmin", name:"Témpera Rojo Carmín 318", note:"Spondylus — elige presentación", unit:"unid", qty:1, price:28.50, icon:"swatch:#A31621", on:true,
+          options:[ {label:"100ml", price:28.50}, {label:"20ml", price:14.50} ] },
+        { id:"t_bermellon", name:"Témpera Rojo Bermellón 311", note:"Spondylus — elige presentación", unit:"unid", qty:1, price:28.50, icon:"swatch:#D9502B", on:true,
+          options:[ {label:"100ml", price:28.50}, {label:"20ml", price:14.50} ] },
+        { id:"t_magenta", name:"Témpera Magenta 397", note:"Spondylus — elige presentación", unit:"unid", qty:1, price:28.50, icon:"swatch:#C2185B", on:true,
+          options:[ {label:"100ml", price:28.50}, {label:"20ml", price:14.50} ] },
+        { id:"t_cadmio", name:"Témpera Amarillo Cadmio medio 200", note:"Spondylus — elige presentación", unit:"unid", qty:1, price:28.50, icon:"swatch:#EEA80A", on:true,
+          options:[ {label:"100ml", price:28.50}, {label:"20ml", price:14.50} ] },
+        { id:"t_limon", name:"Témpera Amarillo Limón 205", note:"Spondylus — elige presentación", unit:"unid", qty:1, price:28.50, icon:"swatch:#D9C82E", on:true,
+          options:[ {label:"100ml", price:28.50}, {label:"20ml", price:14.50} ] },
+        { id:"t_prusia", name:"Témpera Azul Prusia 508", note:"Spondylus — elige presentación", unit:"unid", qty:1, price:28.50, icon:"swatch:#10375C", on:true,
+          options:[ {label:"100ml", price:28.50}, {label:"20ml", price:14.50} ] },
+        { id:"t_ultramar", name:"Témpera Azul Ultramar 506", note:"Spondylus — elige presentación", unit:"unid", qty:1, price:28.50, icon:"swatch:#28439E", on:true,
+          options:[ {label:"100ml", price:28.50}, {label:"20ml", price:14.50} ] },
+        { id:"t_cian", name:"Témpera Azul Cian 501", note:"Spondylus — elige presentación", unit:"unid", qty:1, price:28.50, icon:"swatch:#0089AC", on:true,
+          options:[ {label:"100ml", price:28.50}, {label:"20ml", price:14.50} ] },
+      ]},
+      { cat:"Opcionales", items:[
+        { id:"compas", name:"Compás cutter para círculos", note:"Olfa — elige el tamaño de corte", unit:"unid", qty:1, price:66.30, icon:"compass", on:true,
+          options:[ {label:"CMP-1/DX (corta hasta 20cm)", price:66.30}, {label:"CMP-1 (corta hasta 15cm)", price:44.20} ] },
+        { id:"espatulas", name:"Espátulas delgadas para arte", note:"Set x5 unidades", unit:"set", qty:1, price:15.00, icon:"spatula", on:true },
+        { id:"circulo", name:"Círculo cromático", note:"Elige el formato", unit:"unid", qty:1, price:10.00, icon:"wheel", on:true,
+          options:[ {label:"Rueda RBA (rojo, amarillo, azul)", price:10.00}, {label:"Libro de círculo cromático", price:20.00} ] },
+      ]}
+    ]
+  },
+  upc:   { name:"UPC",          color:"#28439E", available:false },
+  pucp:  { name:"PUCP",         color:"#10375C", available:false },
+  ulima: { name:"U. de Lima",   color:"#0089AC", available:false },
+  utp:   { name:"UTP",          color:"#C2185B", available:false }
+};
+
+const DISCOUNT = 0.10;
+const WHATSAPP_NUMBER = "51956905759"; // número de WhatsApp de la tienda
+let CATALOG = [];        // catálogo de la universidad activa (se llena al elegir)
+let selectedUni = null;
+
+/* ============ SELECTOR DE UNIVERSIDAD ============ */
+const uniSelector = document.getElementById('uniSelector');
+const listado = document.getElementById('listado');
+
+Object.keys(UNIVERSITIES).forEach(id=>{
+  const u = UNIVERSITIES[id];
+  const card = document.createElement('button');
+  card.className = "uni-card" + (u.available ? "" : " soon");
+  card.style.setProperty('--uni-color', u.color);
+  card.dataset.uni = id;
+  card.innerHTML = `
+    <div class="uni-dot" style="background:${u.color}"></div>
+    <div class="uni-name">${u.name}</div>
+    <div class="uni-status">${u.available ? "Lista disponible" : "Próximamente"}</div>
+  `;
+  card.addEventListener('click', ()=> selectUniversity(id));
+  uniSelector.appendChild(card);
+});
+
+function selectUniversity(id){
+  selectedUni = id;
+  uniSelector.querySelectorAll('.uni-card').forEach(c=>{
+    c.classList.toggle('active', c.dataset.uni === id);
+  });
+
+  const u = UNIVERSITIES[id];
+  if(!u.available){
+    CATALOG = [];
+    listado.innerHTML = `
+      <div class="uni-empty">
+        <b>Todavía no tenemos la lista de ${u.name} 🎨</b>
+        Escríbenos por WhatsApp y te ayudamos a armarla igual, con el 10% de aniversario.
+      </div>`;
+    recalc();
+    return;
+  }
+
+  CATALOG = u.catalog;
+  renderCatalog();
+  recalc();
+}
+
+function renderCatalog(){
+  listado.innerHTML = "";
+  CATALOG.forEach((group, gi) => {
+    const section = document.createElement('div');
+    section.className = "section";
+    section.innerHTML = `
+      <div class="section-head" data-toggle>
+        <h2>${group.cat}</h2>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="section-count mono" id="count-${gi}"></span>
+          <span class="chev">▾</span>
+        </div>
+      </div>
+      <div class="select-all">
+        <button data-all="${gi}" data-val="1">Marcar todo</button>
+        <button data-all="${gi}" data-val="0">Quitar todo</button>
+      </div>
+      <div class="item-list" id="list-${gi}"></div>
+    `;
+    listado.appendChild(section);
+
+    const listEl = section.querySelector(`#list-${gi}`);
+    group.items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = "item" + (item.on ? "" : " off");
+      row.dataset.id = item.id;
+
+      const iconHtml = item.icon.startsWith("swatch:") ? swatch(item.icon.split(":")[1]) : ICONS[item.icon];
+      const hasOptions = Array.isArray(item.options) && item.options.length > 0;
+      const defaultPrice = hasOptions ? item.options[0].price : item.price;
+      const priceEach = (defaultPrice * (1 - DISCOUNT));
+
+      const variantHtml = hasOptions ? `
+        <select class="variant-select" data-variant>
+          ${item.options.map((o,i)=>`<option value="${o.price}" data-label="${o.label.replace(/"/g,'&quot;')}" ${i===0?"selected":""}>${o.label} — S/ ${o.price.toFixed(2)}</option>`).join("")}
+        </select>` : "";
+
+      row.innerHTML = `
+        <div class="item-icon">${iconHtml}</div>
+        <div class="item-mid">
+          <div class="item-name">${item.name}</div>
+          <div class="item-note">${item.note ? item.note + " · " : ""}${item.unit}${hasOptions ? "" : " · S/ " + item.price.toFixed(2) + " c/u"}</div>
+          ${variantHtml}
+        </div>
+        <div class="item-right">
+          <div class="price-row">
+            <span class="price-old">S/ ${defaultPrice.toFixed(2)}</span>
+            <span class="price-new mono" data-price>S/ ${priceEach.toFixed(2)}</span>
+          </div>
+          <div class="qty-check">
+            <div class="qty">
+              <button data-step="-1">−</button>
+              <input type="text" inputmode="numeric" value="${item.qty}" data-qty readonly>
+              <button data-step="1">+</button>
+            </div>
+            <input type="checkbox" class="chk" ${item.on ? "checked" : ""} data-chk>
+          </div>
+        </div>
+      `;
+      listEl.appendChild(row);
+    });
+  });
+}
+
+/* ============ EVENTOS (delegados: funcionan aunque la lista se vuelva a dibujar) ============ */
+listado.addEventListener('click', e=>{
+  const head = e.target.closest('[data-toggle]');
+  if(head){ head.parentElement.classList.toggle('collapsed'); return; }
+
+  const allBtn = e.target.closest('[data-all]');
+  if(allBtn){
+    const gi = allBtn.dataset.all, val = allBtn.dataset.val === "1";
+    document.querySelectorAll(`#list-${gi} [data-chk]`).forEach(c=>{
+      c.checked = val;
+      c.closest('.item').classList.toggle('off', !val);
+    });
+    recalc();
+    return;
+  }
+
+  const stepBtn = e.target.closest('[data-step]');
+  if(stepBtn){
+    const row = stepBtn.closest('.item');
+    const input = row.querySelector('[data-qty]');
+    let v = parseInt(input.value || "0", 10);
+    v += parseInt(stepBtn.dataset.step, 10);
+    if(v < 0) v = 0;
+    input.value = v;
+    if(v === 0){
+      row.querySelector('[data-chk]').checked = false;
+      row.classList.add('off');
+    }
+    recalc();
+  }
+});
+listado.addEventListener('change', e=>{
+  if(e.target.matches('[data-chk]')){
+    e.target.closest('.item').classList.toggle('off', !e.target.checked);
+    recalc();
+  }
+  if(e.target.matches('[data-variant]')){
+    recalc();
+  }
+});
+
+/* Devuelve el precio unitario vigente de una fila, tomando en cuenta la variante elegida (si tiene) */
+function currentPrice(row){
+  const variant = row.querySelector('[data-variant]');
+  if(variant) return parseFloat(variant.value);
+  const id = row.dataset.id;
+  let price = 0;
+  CATALOG.forEach(g => g.items.forEach(it => { if(it.id === id) price = it.price; }));
+  return price;
+}
+
+/* ============ TOTALS ============ */
+function getData(){
+  const rows = [...document.querySelectorAll('.item')];
+  let subtotal = 0;
+  const chosen = [];
+  rows.forEach(row=>{
+    const chk = row.querySelector('[data-chk]');
+    const qty = parseInt(row.querySelector('[data-qty]').value || "0", 10);
+    if(chk.checked && qty > 0){
+      const priceEach = currentPrice(row);
+      const baseName = row.querySelector('.item-name').textContent;
+      const variantEl = row.querySelector('[data-variant]');
+      const variantLabel = variantEl ? variantEl.selectedOptions[0].dataset.label : null;
+      const name = variantLabel ? `${baseName} (${variantLabel})` : baseName;
+      const lineTotal = priceEach * qty;
+      subtotal += lineTotal;
+      chosen.push({ name, qty, lineTotal });
+    }
+  });
+  return { subtotal, chosen };
+}
+
+function recalc(){
+  const { subtotal, chosen } = getData();
+  const discountAmt = subtotal * DISCOUNT;
+  const total = subtotal - discountAmt;
+
+  document.getElementById('rSubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
+  document.getElementById('rDesc').textContent = `- S/ ${discountAmt.toFixed(2)}`;
+  document.getElementById('rTotal').textContent = `S/ ${total.toFixed(2)}`;
+  document.getElementById('pillTotal').textContent = `S/ ${total.toFixed(2)}`;
+  document.getElementById('barTotal').textContent = `S/ ${total.toFixed(2)}`;
+
+  // sección conteo
+  CATALOG.forEach((g,gi)=>{
+    const n = document.querySelectorAll(`#list-${gi} [data-chk]:checked`).length;
+    document.getElementById(`count-${gi}`).textContent = `${n}/${g.items.length}`;
+  });
+
+  // sorteo: 1 ticket cada S/100
+  const tickets = Math.floor(total / 100);
+  const remainder = total % 100;
+  const progress = Math.min(100, (remainder / 100) * 100);
+  const bar = document.getElementById('raffleBar');
+  const msg = document.getElementById('raffleMsg');
+  const tc = document.getElementById('ticketCount');
+
+  if(total <= 0){
+    msg.innerHTML = "Agrega útiles a tu lista para ganar tickets del sorteo 🎁";
+    bar.style.width = "0%";
+    tc.textContent = "";
+  } else if(tickets === 0){
+    const falta = (100 - remainder).toFixed(2);
+    msg.innerHTML = `Te faltan <b>S/ ${falta}</b> para tu primer ticket del sorteo 🎟️`;
+    bar.style.width = `${progress}%`;
+    tc.textContent = "";
+  } else {
+    const falta = (100 - remainder).toFixed(2);
+    msg.innerHTML = remainder > 0
+      ? `¡Ya tienes <b>${tickets}</b> ticket${tickets>1?"s":""} para el sorteo! Te faltan S/ ${falta} para el siguiente.`
+      : `¡Ya tienes <b>${tickets}</b> ticket${tickets>1?"s":""} para el sorteo! 🎉`;
+    bar.style.width = `${progress}%`;
+    tc.textContent = `🎟️ ${tickets} ticket${tickets>1?"s":""} de sorteo asegurado${tickets>1?"s":""}`;
+  }
+
+  // actualizar precios visibles según la variante elegida en cada fila
+  document.querySelectorAll('.item').forEach(row=>{
+    const price = currentPrice(row);
+    const oldEl = row.querySelector('.price-old');
+    const newEl = row.querySelector('[data-price]');
+    if(oldEl) oldEl.textContent = `S/ ${price.toFixed(2)}`;
+    if(newEl) newEl.textContent = `S/ ${(price*(1-DISCOUNT)).toFixed(2)}`;
+  });
+
+  // WhatsApp
+  let msgTxt = `Hola, quiero pedir mi lista con el descuento de aniversario:%0A%0A`;
+  chosen.forEach(c=>{
+    msgTxt += `• ${c.name} x${c.qty} — S/ ${(c.lineTotal*(1-DISCOUNT)).toFixed(2)}%0A`;
+  });
+  msgTxt += `%0ASubtotal: S/ ${subtotal.toFixed(2)}%0ADescuento 10%25: -S/ ${discountAmt.toFixed(2)}%0A*Total: S/ ${total.toFixed(2)}*`;
+  if(tickets > 0) msgTxt += `%0A%0A🎟️ Tickets de sorteo: ${tickets}`;
+  document.getElementById('waBtn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msgTxt}`;
+}
+
+function resetAll(){
+  if(!CATALOG.length) return;
+  document.querySelectorAll('.item').forEach(row=>{
+    row.classList.remove('off');
+    row.querySelector('[data-chk]').checked = true;
+    const variant = row.querySelector('[data-variant]');
+    if(variant) variant.selectedIndex = 0;
+  });
+  const ids = {};
+  CATALOG.forEach(g => g.items.forEach(it => ids[it.id] = it.qty));
+  document.querySelectorAll('.item').forEach(row=>{
+    row.querySelector('[data-qty]').value = ids[row.dataset.id];
+  });
+  recalc();
+}
+
+/* Selección por defecto al cargar: la primera universidad disponible */
+const firstAvailable = Object.keys(UNIVERSITIES).find(id => UNIVERSITIES[id].available);
+if(firstAvailable) selectUniversity(firstAvailable);
+else recalc();
+</script>
+</body>
+</html>
