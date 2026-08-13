@@ -421,9 +421,6 @@ const UNIVERSITIES = {
       ]}
     ]
   },
-  upc:   { name:"UPC",          color:"#28439E", available:false },
-  pucp:  { name:"PUCP",         color:"#10375C", available:false },
-  ulima: { name:"U. de Lima",   color:"#0089AC", available:false },
   utp:   { name:"UTP",          color:"#C2185B", available:true,
     catalog: [
       { cat:"Bitácora y papel", items:[
@@ -468,7 +465,10 @@ const UNIVERSITIES = {
           options:[ {label:"125ml", price:14.50}, {label:"60ml", price:8.50}, {label:"35ml", price:6.50} ] },
       ]}
     ]
-  }
+  },
+  upc:   { name:"UPC",          color:"#28439E", available:false },
+  pucp:  { name:"PUCP",         color:"#10375C", available:false },
+  ulima: { name:"U. de Lima",   color:"#0089AC", available:false }
 };
 
 const DISCOUNT = 0.10;
@@ -763,6 +763,10 @@ function resetAll(){
 /* Selección por defecto al cargar: la primera universidad disponible */
 const firstAvailable = Object.keys(UNIVERSITIES).find(id => UNIVERSITIES[id].available);
 if(firstAvailable) selectUniversity(firstAvailable);
+else recalc();
+</script>
+</body>
+</html>
 else recalc();
 </script>
 </body>
