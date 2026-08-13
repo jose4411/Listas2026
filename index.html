@@ -424,7 +424,51 @@ const UNIVERSITIES = {
   upc:   { name:"UPC",          color:"#28439E", available:false },
   pucp:  { name:"PUCP",         color:"#10375C", available:false },
   ulima: { name:"U. de Lima",   color:"#0089AC", available:false },
-  utp:   { name:"UTP",          color:"#C2185B", available:false }
+  utp:   { name:"UTP",          color:"#C2185B", available:true,
+    catalog: [
+      { cat:"Bitácora y papel", items:[
+        { id:"utp_bitacora", name:"Bitácora A4, 90 hojas, 90gr", note:"Elige marca — obligatoria en todas las sesiones (S01–S17)", unit:"unid", qty:1, price:16.00, icon:"paper", on:true,
+          options:[ {label:"Canson A4 90gr 90H", price:15.00}, {label:"Fabriano A35 90gr 90H", price:35.00} ] },
+        { id:"utp_papel_vegetal", name:"Papel vegetal", note:"Elige presentación", unit:"unid", qty:1, price:25.00, icon:"paper", on:true,
+          options:[
+            {label:"Pliego 100x70cm", price:5.50},
+            {label:"Pliego A1", price:4.50},
+            {label:"Pliego A2", price:2.50},
+            {label:"Block A3 x25 hojas", price:21.00}
+          ] },
+      ]},
+      { cat:"Lápices y plumones", items:[
+        { id:"utp_lapiz", name:"Set de lápices grafito x12", note:"Elige tu marca", unit:"set", qty:1, price:78.40, icon:"pencil", on:true,
+          options:[ {label:"Staedtler Lumograph Hard", price:76.00}, {label:"Stabilo Othello (8B–4H)", price:25.00} ] },
+        { id:"utp_plumones", name:"Set de plumones/rotuladores x10", note:"Stabilo extrafino, punta de fibra 0.4mm", unit:"set", qty:1, price:30.00, icon:"brush", on:true },
+        { id:"utp_estilografos", name:"Set de estilógrafos", note:"Elige marca y número de puntas", unit:"set", qty:1, price:28.50, icon:"brush", on:true,
+          options:[
+            {label:"Artline x4", price:30.00},
+            {label:"Artline x5", price:35.00},
+            {label:"Artline x10", price:78.00},
+            {label:"Uni Pin x8", price:42.00},
+            {label:"Staedtler x6", price:46.00},
+            {label:"Faber Castell x8", price:94.50}
+          ] },
+      ]},
+      { cat:"Reglas y escalímetro", items:[
+        { id:"utp_regla30", name:"Regla Relampago de metal 30cm", note:"", unit:"unid", qty:1, price:4.50, icon:"ruler", on:true },
+        { id:"utp_escalimetro", name:"Escalímetro Rotring Escala A", note:"", unit:"unid", qty:1, price:33.00, icon:"ruler", on:true },
+      ]},
+      { cat:"Otros", items:[
+        { id:"utp_borrador", name:"Borrador negro grande x1", note:"Stabilo Exam Grade", unit:"unid", qty:1, price:3.50, icon:"eraser", on:true },
+        { id:"utp_tajador", name:"Tajador profesional", note:"Elige tu marca", unit:"unid", qty:1, price:12.00, icon:"eraser", on:true,
+          options:[ {label:"KUM Long Point", price:18.00}, {label:"Staedtler", price:18.00}, {label:"Faber Castell", price:17.00} ] },
+        { id:"utp_cuchilla", name:"Cuchilla", note:"Elige el modelo", unit:"unid", qty:1, price:6.00, icon:"scissors", on:true,
+          options:[ {label:"SL-1", price:26.00}, {label:"BN-L", price:32.50}, {label:"L-1", price:44.20} ] },
+        { id:"utp_tijera", name:"Tijera de papel", note:"Delfín", unit:"unid", qty:1, price:8.00, icon:"scissors", on:true },
+        { id:"utp_marcadores", name:"Marcadores doble punta x36", note:"Lanke, cuerpo triangular, tinta a base de alcohol", unit:"unid", qty:1, price:45.00, icon:"brush", on:true },
+        { id:"utp_cinta", name:"Cinta mágica 3/4\" x36yd", note:"3M Scotch, 19mm x 32.9mm", unit:"unid", qty:1, price:6.90, icon:"glue", on:true },
+        { id:"utp_uhu", name:"Pegamento UHU Pegalotodo", note:"Elige presentación", unit:"unid", qty:2, price:21.30, icon:"glue", on:true,
+          options:[ {label:"125ml", price:14.50}, {label:"60ml", price:8.50}, {label:"35ml", price:6.50} ] },
+      ]}
+    ]
+  }
 };
 
 const DISCOUNT = 0.10;
