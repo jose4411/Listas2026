@@ -279,7 +279,7 @@
     </div>
     <div class="promo-item">
       <div class="promo-icon">🎟️</div>
-      <div><b>Ticket para el sorteo</b><span>Por cada S/100 en tu compra, 1 ticket para +20 premios del mes.</span></div>
+      <div><b>Ticket para el sorteo</b><span>1 ticket en S/100, y luego uno más cada S/200 (S/300, S/500, S/700...) para +20 premios del mes.</span></div>
     </div>
     <div class="promo-item">
       <div class="promo-icon">🎁</div>
@@ -651,10 +651,12 @@ function recalc(){
     regaloEstado.textContent = "";
   }
 
-  // sorteo: 1 ticket cada S/100
-  const tickets = Math.floor(total / 100);
-  const remainder = total % 100;
-  const progress = Math.min(100, (remainder / 100) * 100);
+  // sorteo: tickets en S/100, S/300, S/500, S/700... (cada S/200 desde el primer S/100)
+  const STEP = 200, START = 100;
+  const tickets = total < START ? 0 : Math.floor((total - START) / STEP) + 1;
+  const nextThreshold = START + tickets * STEP;
+  const prevThreshold = total < START ? 0 : START + (tickets - 1) * STEP;
+  const progress = total <= 0 ? 0 : Math.min(100, ((total - prevThreshold) / (nextThreshold - prevThreshold)) * 100);
   const bar = document.getElementById('raffleBar');
   const msg = document.getElementById('raffleMsg');
   const tc = document.getElementById('ticketCount');
@@ -664,13 +666,13 @@ function recalc(){
     bar.style.width = "0%";
     tc.textContent = "";
   } else if(tickets === 0){
-    const falta = (100 - remainder).toFixed(2);
+    const falta = (START - total).toFixed(2);
     msg.innerHTML = `Te faltan <b>S/ ${falta}</b> para tu primer ticket del sorteo 🎟️`;
     bar.style.width = `${progress}%`;
     tc.textContent = "";
   } else {
-    const falta = (100 - remainder).toFixed(2);
-    msg.innerHTML = remainder > 0
+    const falta = (nextThreshold - total).toFixed(2);
+    msg.innerHTML = falta > 0
       ? `¡Ya tienes <b>${tickets}</b> ticket${tickets>1?"s":""} para el sorteo! Te faltan S/ ${falta} para el siguiente.`
       : `¡Ya tienes <b>${tickets}</b> ticket${tickets>1?"s":""} para el sorteo! 🎉`;
     bar.style.width = `${progress}%`;
