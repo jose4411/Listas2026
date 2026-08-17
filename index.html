@@ -456,8 +456,8 @@ const UNIVERSITIES = {
         { id:"utp_borrador", name:"Borrador negro grande x1", note:"Stabilo Exam Grade", unit:"unid", qty:1, price:3.50, icon:"eraser", on:true },
         { id:"utp_tajador", name:"Tajador profesional", note:"Elige tu marca", unit:"unid", qty:1, price:12.00, icon:"eraser", on:true,
           options:[ {label:"KUM Long Point", price:18.00}, {label:"Staedtler", price:18.00}, {label:"Faber Castell", price:17.00} ] },
-        { id:"utp_cuchilla", name:"Cuchilla", note:"Elige el modelo", unit:"unid", qty:1, price:6.00, icon:"scissors", on:true,
-          options:[ {label:"SL-1", price:26.00}, {label:"BN-L", price:32.50}, {label:"L-1", price:44.20} ] },
+        { id:"utp_cuchilla", name:"Cuchilla", note:"Olfa — elige el modelo", unit:"unid", qty:1, price:6.00, icon:"scissors", on:true,
+          options:[ {label:"Olfa SL-1", price:26.00}, {label:"Olfa BN-L", price:32.50}, {label:"Olfa L-1", price:44.20} ] },
         { id:"utp_tijera", name:"Tijera de papel", note:"Delfín", unit:"unid", qty:1, price:8.00, icon:"scissors", on:true },
         { id:"utp_marcadores", name:"Marcadores doble punta x36", note:"Lanke, cuerpo triangular, tinta a base de alcohol", unit:"unid", qty:1, price:45.00, icon:"brush", on:true },
         { id:"utp_cinta", name:"Cinta mágica 3/4\" x36yd", note:"3M Scotch, 19mm x 32.9mm", unit:"unid", qty:1, price:6.90, icon:"glue", on:true },
@@ -510,8 +510,8 @@ const UNIVERSITIES = {
       ]},
       { cat:"Otros", items:[
         { id:"arq_masking", name:"Cinta masking tape de ½\"", note:"Cualquier marca", unit:"unid", qty:1, price:1.50, icon:"glue", on:true },
-        { id:"arq_cutter", name:"Cútter para corte", note:"Elige modelo", unit:"unid", qty:1, price:26.00, icon:"scissors", on:true,
-          options:[ {label:"SL-1", price:26.00}, {label:"L-7", price:40.50}, {label:"L-1", price:44.20}, {label:"Olfa BN-L", price:32.50} ] },
+        { id:"arq_cutter", name:"Cútter para corte", note:"Olfa — elige modelo", unit:"unid", qty:1, price:26.00, icon:"scissors", on:true,
+          options:[ {label:"Olfa SL-1", price:26.00}, {label:"Olfa L-7", price:40.50}, {label:"Olfa L-1", price:44.20}, {label:"Olfa BN-L", price:32.50} ] },
         { id:"arq_tajador", name:"Tajador de lápiz", note:"Si usa portaminas, tajador de portaminas — elige marca", unit:"unid", qty:1, price:18.00, icon:"eraser", on:true,
           options:[ {label:"KUM", price:18.00}, {label:"Staedtler", price:18.00}, {label:"Prismacolor", price:18.00}, {label:"Faber Castell", price:17.00} ] },
         { id:"arq_escobilla", name:"Escobilla de escritorio", note:"Se usa para la limpieza del tablero — tamaño y marca adecada", unit:"unid", qty:1, price:8.50, icon:"cloth", on:true },
@@ -775,13 +775,14 @@ function recalc(){
     tc.textContent = `🎟️ ${tickets} ticket${tickets>1?"s":""} de sorteo asegurado${tickets>1?"s":""}`;
   }
 
-  // actualizar precios visibles según la variante elegida en cada fila
+  // actualizar precios visibles según la variante elegida y la cantidad de cada fila
   document.querySelectorAll('.item').forEach(row=>{
     const price = currentPrice(row);
+    const qty = parseInt(row.querySelector('[data-qty]').value || "0", 10);
     const oldEl = row.querySelector('.price-old');
     const newEl = row.querySelector('[data-price]');
-    if(oldEl) oldEl.textContent = `S/ ${price.toFixed(2)}`;
-    if(newEl) newEl.textContent = `S/ ${(price*(1-DISCOUNT)).toFixed(2)}`;
+    if(oldEl) oldEl.textContent = `S/ ${(price*qty).toFixed(2)}`;
+    if(newEl) newEl.textContent = `S/ ${(price*(1-DISCOUNT)*qty).toFixed(2)}`;
   });
 
   // WhatsApp
