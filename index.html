@@ -421,7 +421,7 @@ const UNIVERSITIES = {
       ]}
     ]
   },
-  utp:   { name:"UTP",          color:"#C2185B", available:true,
+  utp:   { name:"UTP - Diseño Empresarial",          color:"#C2185B", available:true,
     catalog: [
       { cat:"Bitácora y papel", items:[
         { id:"utp_bitacora", name:"Bitácora A4, 90 hojas, 90gr", note:"Elige marca — obligatoria en todas las sesiones (S01–S17)", unit:"unid", qty:1, price:16.00, icon:"paper", on:true,
@@ -463,6 +463,58 @@ const UNIVERSITIES = {
         { id:"utp_cinta", name:"Cinta mágica 3/4\" x36yd", note:"3M Scotch, 19mm x 32.9mm", unit:"unid", qty:1, price:6.90, icon:"glue", on:true },
         { id:"utp_uhu", name:"Pegamento UHU Pegalotodo", note:"Elige presentación", unit:"unid", qty:2, price:21.30, icon:"glue", on:true,
           options:[ {label:"125ml", price:14.50}, {label:"60ml", price:8.50}, {label:"35ml", price:6.50} ] },
+      ]}
+    ]
+  },
+  utp_arq: { name:"UTP - Arquitectura", color:"#D9502B", available:true,
+    catalog: [
+      { cat:"Papel y bitácora", items:[
+        { id:"arq_cartulina", name:"Cartulina blanca Canson formato A3", note:"180 g/m² — podría ser el cuadernillo A3 de 20 unidades", unit:"unid", qty:1, price:18.00, icon:"paper", on:true },
+        { id:"arq_bitacora", name:"Bitácora formato A4", note:"Hojas blancas de 90 g/m²", unit:"unid", qty:1, price:15.00, icon:"paper", on:true },
+        { id:"arq_mantequilla", name:"Papel mantequilla formato A3", note:"Block de 30 unidades (10 pliegos)", unit:"block", qty:1, price:21.00, icon:"paper", on:true },
+      ]},
+      { cat:"Instrumentos de dibujo", items:[
+        { id:"arq_escuadras", name:"Juego de escuadras de 30 cm", note:"Acrílico transparente incoloro, biseladas o sin bisel", unit:"set", qty:1, price:15.00, icon:"ruler", on:true },
+        { id:"arq_reglaT", name:"Regla \"T\" de 60 cm", note:"Acrílico transparente incoloro, biselada o sin bisel", unit:"unid", qty:1, price:14.00, icon:"ruler", on:true },
+        { id:"arq_compas", name:"Compás de precisión", note:"De metal, con adaptador para estilógrafo — elige marca", unit:"unid", qty:1, price:35.00, icon:"compass", on:true,
+          options:[ {label:"Rooting", price:35.00}, {label:"Staedtler (goma y acero)", price:125.00}, {label:"Staedtler acerado", price:140.00} ] },
+        { id:"arq_escalimetro", name:"Escalímetro de 30 cm", note:"Acrílico. Escalas 1/50, 1/25, 1/100, 1/75, 1/125, 1/20 — elige marca", unit:"unid", qty:1, price:33.00, icon:"ruler", on:true,
+          options:[ {label:"Rooting", price:33.00}, {label:"Maped", price:19.50}, {label:"Staedtler", price:38.00} ] },
+        { id:"arq_reglametal", name:"Regla metálica de 30 cm", note:"", unit:"unid", qty:1, price:4.50, icon:"ruler", on:true },
+      ]},
+      { cat:"Escritura y trazado", items:[
+        { id:"arq_estilografos", name:"Estilógrafos tinta negra N.° 01 al 08", note:"Descartables o recargables — elige set completo o marca por unidad", unit:"unid", qty:1, price:42.00, icon:"pencil", on:true,
+          options:[
+            {label:"Set completo (01–08)", price:42.00},
+            {label:"Uni Pin (unidad)", price:7.50},
+            {label:"Sakura (unidad)", price:10.00},
+            {label:"Artline (unidad)", price:8.70},
+            {label:"Staedtler (unidad)", price:11.50}
+          ] },
+        { id:"arq_lapices", name:"Lápices o portaminas H,2H,B,2B,4B,HB", note:"Elige set x12 o unidad — portaminas de 1.5 a 2mm", unit:"unid", qty:1, price:59.50, icon:"pencil", on:true,
+          options:[
+            {label:"Koh-i-noor set x12", price:59.50},
+            {label:"Prismacolor set x12", price:66.50},
+            {label:"Derwent set x12", price:69.00},
+            {label:"Staedtler set x12", price:76.00},
+            {label:"Faber Castell set x12", price:86.00},
+            {label:"Faber Castell (unidad)", price:3.50},
+            {label:"Staedtler (unidad)", price:6.50}
+          ] },
+        { id:"arq_borrador", name:"Borrador de lápiz", note:"De preferencia blanco — elige marca", unit:"unid", qty:1, price:7.00, icon:"eraser", on:true,
+          options:[ {label:"Faber Castell", price:7.00}, {label:"Staedtler", price:7.50} ] },
+      ]},
+      { cat:"Color", items:[
+        { id:"arq_colores", name:"Caja de colores acuarelables x24", note:"Elige marca", unit:"caja", qty:1, price:45.00, icon:"brush", on:true,
+          options:[ {label:"Staedtler", price:45.00}, {label:"Faber Castell semiprofesional", price:87.00} ] },
+      ]},
+      { cat:"Otros", items:[
+        { id:"arq_masking", name:"Cinta masking tape de ½\"", note:"Cualquier marca", unit:"unid", qty:1, price:1.50, icon:"glue", on:true },
+        { id:"arq_cutter", name:"Cútter para corte", note:"Elige modelo", unit:"unid", qty:1, price:26.00, icon:"scissors", on:true,
+          options:[ {label:"SL-1", price:26.00}, {label:"L-7", price:40.50}, {label:"L-1", price:44.20}, {label:"Olfa BN-L", price:32.50} ] },
+        { id:"arq_tajador", name:"Tajador de lápiz", note:"Si usa portaminas, tajador de portaminas — elige marca", unit:"unid", qty:1, price:18.00, icon:"eraser", on:true,
+          options:[ {label:"KUM", price:18.00}, {label:"Staedtler", price:18.00}, {label:"Prismacolor", price:18.00}, {label:"Faber Castell", price:17.00} ] },
+        { id:"arq_escobilla", name:"Escobilla de escritorio", note:"Se usa para la limpieza del tablero — tamaño y marca adecada", unit:"unid", qty:1, price:8.50, icon:"cloth", on:true },
       ]}
     ]
   },
@@ -763,10 +815,6 @@ function resetAll(){
 /* Selección por defecto al cargar: la primera universidad disponible */
 const firstAvailable = Object.keys(UNIVERSITIES).find(id => UNIVERSITIES[id].available);
 if(firstAvailable) selectUniversity(firstAvailable);
-else recalc();
-</script>
-</body>
-</html>
 else recalc();
 </script>
 </body>
